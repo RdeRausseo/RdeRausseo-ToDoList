@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import { BiTrash } from "react-icons/bi";
 
 //create your first component
 const Home = () => {
@@ -33,13 +34,16 @@ const Home = () => {
     }
   };
 
+  const deleteTask = (task) => {
+    setTasks(tasks.filter((homework) => homework !== task));
+  };
+
   return (
     <div className=" container p-5 text-center">
       <ul>
         {errors?.map((error, index) => (
           <li key={index} className="text-danger">
-            {" "}
-            {error}{" "}
+            {error}
           </li>
         ))}
       </ul>
@@ -56,10 +60,20 @@ const Home = () => {
           />
         </li>
         {tasks?.map((task, index) => (
-          <li className="list-group-item" key={index}>
-            {task}
+          <li
+            className="d-flex justify-content-between list-group-item fs-2"
+            key={index}
+          >
+            <span> {task} </span>
+            <button
+              className="ms-auto btn btn-danger p-2 trash-button"
+              onClick={() => deleteTask(task)}
+            >
+              <BiTrash size={20} />
+            </button>
           </li>
         ))}
+        {console.log(tasks)}
       </ul>
     </div>
   );
